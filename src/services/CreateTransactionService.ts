@@ -1,5 +1,5 @@
-// import AppError from '../errors/AppError';
 import { getCustomRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 import TransactionsRepository from '../repositories/TransactionsRepository';
 
 import Transaction from '../models/Transaction';
@@ -24,7 +24,7 @@ class CreateTransactionService {
     const sourceLessBalance = type === 'outcome' && balance.total < value;
 
     if (sourceLessBalance) {
-      throw new Error('Source account not have balance for this operation');
+      throw new AppError('Source account not have balance for this operation');
     }
 
     const transaction = transactionsRepository.create({
